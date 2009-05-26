@@ -44,6 +44,13 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[String], initialStat
 	}
 
 
+
+
+	def apply(word: String): FiniteStateMachine = {
+		FiniteStateMachine(sigma, states, stateAfter(word), transitionFunction, finalStates)
+	}
+
+
 	
 	def accepts(word: String): Boolean = {
 		finalStates.contains(stateAfter(word))
@@ -68,11 +75,5 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[String], initialStat
 		}
 
 		stateAfter(word, initialState)
-	}
-
-
-
-	def apply(word: String): FiniteStateMachine = {
-		FiniteStateMachine(sigma, states, stateAfter(word), transitionFunction, finalStates)
 	}
 }
