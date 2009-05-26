@@ -33,7 +33,7 @@ class FiniteStateMachineTest {
 	val S0 = State("s0")
 	val S1 = State("s1")
 	val states = HashSet(S0, S1)
-	val transitionFunction = (state: State, symbol: Char) => (state, symbol) match {
+	val transitionFunction: PartialFunction[(State, Char), State] = {
 		case (S0, '0') => S0
 		case (S0, '1') => S1
 		case (S1, '0') => S0

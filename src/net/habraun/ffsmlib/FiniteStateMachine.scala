@@ -21,7 +21,7 @@ package net.habraun.ffsmlib
 
 
 case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState: State,
-		transitionFunction: (State, Char) => State, finalStates: Set[State]) {
+		transitionFunction: PartialFunction[(State, Char), State], finalStates: Set[State]) {
 	
 	// Check if any of the arguments is null.
 	if (sigma == null || states == null || initialState == null || transitionFunction == null
