@@ -153,4 +153,12 @@ class FiniteStateMachineTest {
 	def stateAfterWithInvalidWord {
 		fsm.stateAfter("ab")
 	}
+
+
+
+	@Test
+	def apply {
+		val expected = FiniteStateMachine(sigma, states, S1, transitionFunction, finalStates)
+		assertEquals(expected, fsm("1"))
+	}
 }

@@ -69,4 +69,10 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState
 
 		stateAfter(word, initialState)
 	}
+
+
+
+	def apply(word: String): FiniteStateMachine = {
+		FiniteStateMachine(sigma, states, stateAfter(word), transitionFunction, finalStates)
+	}
 }
