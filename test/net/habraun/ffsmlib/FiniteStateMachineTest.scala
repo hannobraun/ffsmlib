@@ -52,27 +52,6 @@ class FiniteStateMachineTest {
 
 
 
-	@Test
-	def giveValidWord {
-		assertTrue(fsm.accepts("01"))
-	}
-
-
-
-	@Test
-	def giveInvalidWord {
-		assertFalse(fsm.accepts("00"))
-	}
-
-
-
-	@Test { val expected = classOf[IllegalArgumentException] }
-	def giveWordWithInvalidChars {
-		fsm.accepts("ab")
-	}
-
-
-
 	@Test { val expected = classOf[IllegalArgumentException] }
 	def createFSMWithInitialStateThatIsNotInStates {
 		FiniteStateMachine(sigma, states, State("s8"), transitionFunction, finalStates)
@@ -131,5 +110,26 @@ class FiniteStateMachineTest {
 		}
 
 		FiniteStateMachine(sigma, states, S0, transitionFunction, finalStates)
+	}
+
+
+
+	@Test
+	def giveValidWord {
+		assertTrue(fsm.accepts("01"))
+	}
+
+
+
+	@Test
+	def giveInvalidWord {
+		assertFalse(fsm.accepts("00"))
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def giveWordWithInvalidChars {
+		fsm.accepts("ab")
 	}
 }
