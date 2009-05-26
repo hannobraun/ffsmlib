@@ -20,6 +20,24 @@ package net.habraun.ffsmlib
 
 
 
+/**
+ * Models a finite-state machine (FSM).
+ * A finite-state machine consists of the following elements:
+ * * An alphabet.
+ * * A set of states.
+ * * The initial state of the FSM, before any words have been processed.
+ * * A transition function, which takes a state and a symbol from the alphabet as parameters, and returns a
+ *   new state. The transition function needs to be complete, i.e. every combination of state and symbol must
+     be accepted.
+ * * A set of final states, which is a subset of the FSM's states.
+ *
+ * FiniteStateMachine will verify that its parameters are valid and will throw an IllegalArgumentException on
+ * construction if they are not.
+ *
+ * FiniteStateMachine is immutable. This means that after it has been constructed, no changes can be made to
+ * it.
+ */
+
 case class FiniteStateMachine(sigma: Set[Char], states: Set[String], initialState: String,
 		transitionFunction: PartialFunction[(String, Char), String], finalStates: Set[String]) {
 	
@@ -45,18 +63,31 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[String], initialStat
 
 
 
+	/**
+	 * Returns a new FiniteStateMachine instance, which is the same as this instance, except the initial
+	 * state is changed to the state the FSM has after the given word has been processed.
+	 */
 
 	def apply(word: String): FiniteStateMachine = {
 		FiniteStateMachine(sigma, states, stateAfter(word), transitionFunction, finalStates)
 	}
 
 
+
+	/**
+	 * Returns true, if the FSM accepts the given word (i.e. the state after processing is a final state),
+	 * false otherwise.
+	 */
 	
 	def accepts(word: String): Boolean = {
 		finalStates.contains(stateAfter(word))
 	}
 
 
+
+	/**
+	 * Returns the state of the FSM after the given word has been processed.
+	 */
 
 	def stateAfter(word: String): String = {
 		for (symbol <- word) {
