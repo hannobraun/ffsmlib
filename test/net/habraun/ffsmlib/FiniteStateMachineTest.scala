@@ -119,4 +119,17 @@ class FiniteStateMachineTest {
 	def createFSMWithNullFinalStates {
 		FiniteStateMachine(sigma, states, S0, transitionFunction, null)
 	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWithIncompleteTransitionFunction {
+		val transitionFunction: PartialFunction[(State, Char), State] ={
+			case (S0, '0') => S0
+			case (S0, '1') => S1
+			case (S1, '0') => S0
+		}
+
+		FiniteStateMachine(sigma, states, S0, transitionFunction, finalStates)
+	}
 }

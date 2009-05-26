@@ -36,6 +36,13 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState
 	if (!finalStates.subsetOf(states))
 		throw new IllegalArgumentException("Final states are not a subset of the FSM's states.")
 
+	// Verify that the transition function is complete.
+	for ( state <- states; symbol <- sigma) {
+		if (!transitionFunction.isDefinedAt((state, symbol)))
+			throw new IllegalArgumentException("Transition function is incomplete. Doesn't accept"
+					+ " parameter (" + state + ", " + symbol + ").")
+	}
+
 
 	
 	def accepts(word: String): Boolean = {
