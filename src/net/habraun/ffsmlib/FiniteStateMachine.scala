@@ -46,21 +46,27 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState
 
 	
 	def accepts(word: String): Boolean = {
+		finalStates.contains(stateAfter(word))
+	}
+
+
+
+	def stateAfter(word: String): State = {
 		for (symbol <- word) {
 			if (!sigma.contains(symbol)) {
 				throw new IllegalArgumentException("Invalid symbol: " + symbol)
 			}
 		}
-
-		def accepts(word: String, state: State): Boolean = {
+		
+		def stateAfter(word: String, state: State): State = {
 			if (word.length == 0) {
-				finalStates.contains(state)
+				state
 			}
 			else {
-				accepts(word.substring(1), transitionFunction(state, word.charAt(0)))
+				stateAfter(word.substring(1), transitionFunction(state, word.charAt(0)))
 			}
 		}
 
-		accepts(word, initialState)
+		stateAfter(word, initialState)
 	}
 }

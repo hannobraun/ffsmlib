@@ -132,4 +132,25 @@ class FiniteStateMachineTest {
 	def giveWordWithInvalidChars {
 		fsm.accepts("ab")
 	}
+
+
+
+	@Test
+	def stateAfter {
+		assertEquals(S0, fsm.stateAfter("00"))
+	}
+
+
+
+	@Test
+	def stateAfter2 {
+		assertEquals(S1, fsm.stateAfter("01"))
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def stateAfterWithInvalidWord {
+		fsm.stateAfter("ab")
+	}
 }
