@@ -1,0 +1,7 @@
+This library was created by Hanno Braun.
+Website: http://habraun.net
+
+The functional finite-sate machine library (short: ffsmlib) is a small library for modelling finite-state machines. It is written in Scala (http://scala-lang.org/).
+
+ffsmlib is mainly a toy without any real applicatoins right now. It is probably usable from Java, but the API has a certain "Scala smell" on it, so I don't think this would be a pleasant experience.
+
