@@ -88,35 +88,35 @@ class FiniteStateMachineTest {
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
-	def createFSMWITHNullAlphabet {
+	def createFSMWithNullAlphabet {
 		FiniteStateMachine(null, states, S0, transitionFunction, finalStates)
 	}
 
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
-	def createFSMWITHNullStates {
+	def createFSMWithNullStates {
 		FiniteStateMachine(sigma, null, S0, transitionFunction, finalStates)
 	}
 
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
-	def createFSMWITHNullS0 {
+	def createFSMWithNullS0 {
 		FiniteStateMachine(sigma, states, null, transitionFunction, finalStates)
 	}
 
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
-	def createFSMWITHNullTransitionFunction {
+	def createFSMWithNullTransitionFunction {
 		FiniteStateMachine(sigma, states, S0, null, finalStates)
 	}
 
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
-	def createFSMWITHNullFinalStates {
+	def createFSMWithNullFinalStates {
 		FiniteStateMachine(sigma, states, S0, transitionFunction, null)
 	}
 }
