@@ -20,7 +20,7 @@ package net.habraun.ffsmlib
 
 
 
-case class FiniteStateMachine(sigma: Alphabet, states: Set[State], initialState: State,
+case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState: State,
 		transitionFunction: (State, Char) => State, finalStates: Set[State]) {
 	
 	// Check if any of the arguments is null.

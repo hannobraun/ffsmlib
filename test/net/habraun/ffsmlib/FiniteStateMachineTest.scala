@@ -29,7 +29,7 @@ import org.junit.Assert._
 
 class FiniteStateMachineTest {
 
-	val sigma = Alphabet('0', '1')
+	val sigma = HashSet('0', '1')
 	val S0 = State("s0")
 	val S1 = State("s1")
 	val states = HashSet(S0, S1)
