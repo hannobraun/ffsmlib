@@ -30,10 +30,10 @@ import org.junit.Assert._
 class FiniteStateMachineTest {
 
 	val sigma = HashSet('0', '1')
-	val S0 = State("s0")
-	val S1 = State("s1")
+	val S0 = "s0"
+	val S1 = "s1"
 	val states = HashSet(S0, S1)
-	val transitionFunction: PartialFunction[(State, Char), State] = {
+	val transitionFunction: PartialFunction[(String, Char), String] = {
 		case (S0, '0') => S0
 		case (S0, '1') => S1
 		case (S1, '0') => S0
@@ -54,14 +54,14 @@ class FiniteStateMachineTest {
 
 	@Test { val expected = classOf[IllegalArgumentException] }
 	def createFSMWithInitialStateThatIsNotInStates {
-		FiniteStateMachine(sigma, states, State("s8"), transitionFunction, finalStates)
+		FiniteStateMachine(sigma, states, "s8", transitionFunction, finalStates)
 	}
 
 
 
 	@Test { val expected = classOf[IllegalArgumentException] }
 	def createFSMWithFinalStatesThatAreNotAllValidStates {
-		FiniteStateMachine(sigma, states, S0, transitionFunction, HashSet(S1, State("s8")))
+		FiniteStateMachine(sigma, states, S0, transitionFunction, HashSet(S1, "s8"))
 	}
 
 
@@ -103,7 +103,7 @@ class FiniteStateMachineTest {
 
 	@Test { val expected = classOf[IllegalArgumentException] }
 	def createFSMWithIncompleteTransitionFunction {
-		val transitionFunction: PartialFunction[(State, Char), State] ={
+		val transitionFunction: PartialFunction[(String, Char), String] ={
 			case (S0, '0') => S0
 			case (S0, '1') => S1
 			case (S1, '0') => S0

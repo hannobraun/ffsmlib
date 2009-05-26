@@ -20,8 +20,8 @@ package net.habraun.ffsmlib
 
 
 
-case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState: State,
-		transitionFunction: PartialFunction[(State, Char), State], finalStates: Set[State]) {
+case class FiniteStateMachine(sigma: Set[Char], states: Set[String], initialState: String,
+		transitionFunction: PartialFunction[(String, Char), String], finalStates: Set[String]) {
 	
 	// Check if any of the arguments is null.
 	if (sigma == null || states == null || initialState == null || transitionFunction == null
@@ -51,14 +51,14 @@ case class FiniteStateMachine(sigma: Set[Char], states: Set[State], initialState
 
 
 
-	def stateAfter(word: String): State = {
+	def stateAfter(word: String): String = {
 		for (symbol <- word) {
 			if (!sigma.contains(symbol)) {
 				throw new IllegalArgumentException("Invalid symbol: " + symbol)
 			}
 		}
 		
-		def stateAfter(word: String, state: State): State = {
+		def stateAfter(word: String, state: String): String = {
 			if (word.length == 0) {
 				state
 			}
