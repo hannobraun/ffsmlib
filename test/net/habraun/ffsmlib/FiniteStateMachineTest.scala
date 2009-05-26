@@ -20,6 +20,8 @@ package net.habraun.ffsmlib
 
 
 
+import scala.collection.immutable._
+
 import org.junit._
 import org.junit.Assert._
 
@@ -27,8 +29,94 @@ import org.junit.Assert._
 
 class FiniteStateMachineTest {
 
-    @Test
-    def test {
-		new FiniteStateMachine
+	val sigma = Alphabet('0', '1')
+	val S0 = State("s0")
+	val S1 = State("s1")
+	val states = HashSet(S0, S1)
+	val transitionFunction = (state: State, symbol: Char) => (state, symbol) match {
+		case (S0, '0') => S0
+		case (S0, '1') => S1
+		case (S1, '0') => S0
+		case (S1, '1') => S1
+	}
+	val finalStates = HashSet(S1)
+
+	var fsm: FiniteStateMachine = null
+
+
+
+    @Before
+    def createFSM {
+		fsm = FiniteStateMachine(sigma, states, S0, transitionFunction, finalStates)
+	}
+
+
+
+	@Test
+	def giveValidWord {
+		assertTrue(fsm.accepts("01"))
+	}
+
+
+
+	@Test
+	def giveInvalidWord {
+		assertFalse(fsm.accepts("00"))
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def giveWordWithInvalidChars {
+		fsm.accepts("ab")
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWithInitialStateThatIsNotInStates {
+		FiniteStateMachine(sigma, states, State("s8"), transitionFunction, finalStates)
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWithFinalStatesThatAreNotAllValidStates {
+		FiniteStateMachine(sigma, states, S0, transitionFunction, HashSet(S1, State("s8")))
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWITHNullAlphabet {
+		FiniteStateMachine(null, states, S0, transitionFunction, finalStates)
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWITHNullStates {
+		FiniteStateMachine(sigma, null, S0, transitionFunction, finalStates)
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWITHNullS0 {
+		FiniteStateMachine(sigma, states, null, transitionFunction, finalStates)
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWITHNullTransitionFunction {
+		FiniteStateMachine(sigma, states, S0, null, finalStates)
+	}
+
+
+
+	@Test { val expected = classOf[IllegalArgumentException] }
+	def createFSMWITHNullFinalStates {
+		FiniteStateMachine(sigma, states, S0, transitionFunction, null)
 	}
 }
